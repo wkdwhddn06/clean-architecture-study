@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude specific shared preferences that contain GCM registration Id -->
+    <!-- 여기에 백업해야할 Shared Preferences 저장 -->
+</full-backup-content>
