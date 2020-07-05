@@ -12,11 +12,11 @@ import slush.ItemListEditor
 
 class MainViewModel(private val newsUseCase: NewsUseCase) : BaseViewModel() {
     private val disposable: CompositeDisposable = CompositeDisposable()
-    var articles = MutableLiveData<List<Article>>()
+    public var articles = MutableLiveData<List<Article>>()
 
     fun fetchNews() {
         val disposable = newsUseCase
-            .getTopHeadlines("us")
+            .getTopHeadlines()
             .subscribe({ response ->
                 Log.d(NEWS_SERVICE, "On Next Called: $response")
                 if (response != null) {

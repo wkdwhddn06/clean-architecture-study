@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         val listEditor = Slush.SingleType<Article>()
             .setItemLayout(R.layout.item_layout)
-            .setItems(listOf())
+            .setItems(mainViewModel.articles.value ?: listOf())
             .setLayoutManager(LinearLayoutManager(this))
             .onItemClick { _, position ->
                 val intent = Intent(this, WebActivity::class.java)
