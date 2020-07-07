@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             .into(recyclerView)
-            .itemListEditor;
+            .itemListEditor
 
         mainViewModel.fetchNews()
 

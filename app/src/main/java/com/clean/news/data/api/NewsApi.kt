@@ -14,5 +14,5 @@ interface NewsApi {
 }
 
 data class HeadLinesQuery (
-    val country: String = "kr"
+    val country: String = "us"
 )

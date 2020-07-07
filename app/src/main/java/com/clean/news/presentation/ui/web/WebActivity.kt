@@ -24,7 +24,8 @@ class WebActivity : AppCompatActivity() {
             webChromeClient = WebChromeClient()
             webViewClient = WebViewClientClass()
             settings.javaScriptEnabled = true
-            loadUrl(url)
+
+            if (url != null) { loadUrl(url) }
         }
     }
 

@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.clean.news"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -73,7 +73,7 @@ dependencies {
     //Serializer
     implementation 'com.google.code.gson:gson:2.8.5'
 
-    //Okhttp
+    //OkHttp
     implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
 
     testImplementation 'junit:junit:4.12'
@@ -82,7 +82,7 @@ dependencies {
 
 }
 
-def getApiKey(){
+static def getApiKey(){
     def Properties props = new Properties()
     props.load(new FileInputStream(new File('secret.properties')))
     return props['NEWS_API_KEY']
