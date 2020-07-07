@@ -5,7 +5,7 @@ Clean Architecture Study With https://github.com/rakshit444/news-sample-app
 
 # 🌟 Used
 1. RxKotlin, RxAndroid
-2. Livedata
+2. LiveData
 3. Retrofit2
 4. Koin
 
