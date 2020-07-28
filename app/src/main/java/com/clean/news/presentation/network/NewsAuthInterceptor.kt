@@ -1,4 +1,4 @@
-package com.clean.news.data.network
+package com.clean.news.presentation.network
 
 import com.clean.news.BuildConfig
 import okhttp3.Interceptor

@@ -1,14 +1,14 @@
 package com.clean.news.presentation.di
 
 import com.clean.news.data.api.NewsApi
-import com.clean.news.data.model.News
-import com.clean.news.data.network.NewsAuthInterceptor
-import com.clean.news.data.network.httpClient
-import com.clean.news.data.network.retrofitClient
-import com.clean.news.data.repositories.NewsRepository
 import com.clean.news.data.repositories.NewsRepositoryImpl
-import com.clean.news.domain.common.AsyncFlowableTransformer
+import com.clean.news.domain.model.News
+import com.clean.news.domain.repositories.NewsRepository
 import com.clean.news.domain.usecase.NewsUseCase
+import com.clean.news.presentation.common.AsyncFlowableTransformer
+import com.clean.news.presentation.network.NewsAuthInterceptor
+import com.clean.news.presentation.network.httpClient
+import com.clean.news.presentation.network.retrofitClient
 import com.clean.news.presentation.ui.main.MainViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -20,7 +20,7 @@ val mRepository = module {
 }
 
 val mUseCases = module {
-    single() {
+    single {
         NewsUseCase(
             repository = get(named(NEWS_REPOSITORY)),
             transformer = AsyncFlowableTransformer<News>()

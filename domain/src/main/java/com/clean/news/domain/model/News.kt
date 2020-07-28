@@ -1,6 +1,4 @@
-package com.clean.news.data.model
-
-import com.clean.news.data.model.Article
+package com.clean.news.domain.model
 
 data class News (
     var status: String,

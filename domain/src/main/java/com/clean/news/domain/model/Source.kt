@@ -1,4 +1,4 @@
-package com.clean.news.data.model
+package com.clean.news.domain.model
 
 data class Source(
     var id: String,

@@ -1,4 +1,4 @@
-package com.clean.news.data.model
+package com.clean.news.domain.model
 
 data class Article(
     val source: Source,
@@ -7,6 +7,6 @@ data class Article(
     val description: String,
     val url: String,
     val urlToImage: String?,
-    val publishedAt: String, //TODO: Maybe Timestamp
+    val publishedAt: String,
     val content: String
 )

@@ -1,5 +1,6 @@
-package com.clean.news.domain.common
+package com.clean.news.presentation.common
 
+import com.clean.news.domain.common.FlowableRxTransformer
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -11,6 +12,6 @@ class AsyncFlowableTransformer<T> : FlowableRxTransformer<T>() {
     }
 }
 
-public fun <T> Flowable<T>.async(): Flowable<T> {
+fun <T> Flowable<T>.async(): Flowable<T> {
     return this.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 }

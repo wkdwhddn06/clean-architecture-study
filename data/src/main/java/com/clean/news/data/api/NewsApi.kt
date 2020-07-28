@@ -1,9 +1,8 @@
 package com.clean.news.data.api
 
-import com.clean.news.data.model.News
+import com.clean.news.domain.model.News
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.http.GET
-import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
 interface NewsApi {
@@ -12,7 +11,3 @@ interface NewsApi {
         @QueryMap options : Map<String, String>
     ): Flowable<News>
 }
-
-data class HeadLinesQuery (
-    val country: String = "us"
-)

@@ -2,17 +2,14 @@ package com.clean.news.presentation.ui.main
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.clean.news.data.model.Article
+import com.clean.news.domain.model.Article
 import com.clean.news.domain.usecase.NewsUseCase
 import com.clean.news.presentation.common.BaseViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
-import slush.ItemListEditor
 
 class MainViewModel(private val newsUseCase: NewsUseCase) : BaseViewModel() {
     private val disposable: CompositeDisposable = CompositeDisposable()
-    public var articles = MutableLiveData<List<Article>>()
+    var articles = MutableLiveData<List<Article>>()
 
     fun fetchNews() {
         val disposable = newsUseCase

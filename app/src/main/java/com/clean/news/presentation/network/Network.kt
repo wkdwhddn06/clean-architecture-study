@@ -1,17 +1,15 @@
-package com.clean.news.data.network
+package com.clean.news.presentation.network
 
 import com.clean.news.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-public fun httpClient(interceptor: Interceptor): OkHttpClient {
+fun httpClient(interceptor: Interceptor): OkHttpClient {
     val httpLoggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)
     val clientBuilder = OkHttpClient.Builder()
 
@@ -26,7 +24,7 @@ public fun httpClient(interceptor: Interceptor): OkHttpClient {
     return clientBuilder.build()
 }
 
-public fun retrofitClient(baseUrl: String, client: OkHttpClient): Retrofit =
+fun retrofitClient(baseUrl: String, client: OkHttpClient): Retrofit =
     Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
