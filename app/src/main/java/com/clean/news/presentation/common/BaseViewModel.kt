@@ -5,7 +5,6 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 
 open class BaseViewModel : ViewModel() {
-
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     protected fun addDisposable(disposable: Disposable) {

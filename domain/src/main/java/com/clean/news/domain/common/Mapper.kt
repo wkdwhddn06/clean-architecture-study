@@ -1,15 +1,28 @@
 package com.clean.news.domain.common
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.full.memberProperties
 
-val gson = Gson()
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.PROPERTY)
+annotation class QueryField(val name: String)
 
-fun <T> T.serializeToMap(): Map<String, String> {
-    return convert()
+fun Query.queryToMap(): Map<String, String> {
+    return convert(this)
 }
 
-fun <T, R> T.convert(): R {
-    val json = gson.toJson(this)
-    return gson.fromJson(json, object : TypeToken<R>() {}.type)
+fun <T> T.convert(query: Query): Map<String, String> {
+    val map: MutableMap<String, String> = mutableMapOf()
+    val declaredMemberProperties = query::class.memberProperties
+
+    for (prop in declaredMemberProperties) {
+        val annotation = prop.findAnnotation<QueryField>()
+        if (annotation != null) {
+            val value: String? = prop.getter.call(query) as String?
+            if (!value.isNullOrEmpty())
+                map[annotation.name] = value
+        }
+    }
+
+    return map
 }

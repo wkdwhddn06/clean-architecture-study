@@ -7,7 +7,12 @@ import retrofit2.http.QueryMap
 
 interface NewsApi {
     @GET("top-headlines")
-    fun searchTopHeadlines(
-        @QueryMap options : Map<String, String>
+    fun getTopHeadlines(
+        @QueryMap options: Map<String, String>
+    ): Flowable<News>
+
+    @GET("everything")
+    fun getSearchResults(
+        @QueryMap options: Map<String, String>
     ): Flowable<News>
 }

@@ -2,15 +2,17 @@ package com.clean.news.presentation.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.clean.news.R
+import com.clean.news.databinding.ActivityMainBinding
 import com.clean.news.databinding.ItemLayoutBinding
 import com.clean.news.domain.model.Article
 import com.clean.news.presentation.ui.web.WebActivity
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import slush.Slush
@@ -21,7 +23,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding: ActivityMainBinding =
+            DataBindingUtil.setContentView<ActivityMainBinding>(
+                this,
+                R.layout.activity_main
+            )
+        binding.vm = mainViewModel
+        binding.lifecycleOwner = this
 
         val listEditor = Slush.SingleType<Article>()
             .setItemLayout(R.layout.item_layout)
@@ -32,17 +40,15 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("url", mainViewModel.getArticle(position)?.url)
                 startActivity(intent)
 
-                Log.d("Main", "Clicked: ${mainViewModel.getArticle(position)?.urlToImage}")
+                Logger.d("Clicked: ${mainViewModel.getArticle(position)?.urlToImage}")
             }
             .setDiffCallback(BasicDiffCallback())
-            .onBindData<ItemLayoutBinding> { binding, article ->
-                binding.data = article
-                binding.thumbnail.clipToOutline = true
+            .onBindData<ItemLayoutBinding> { itemBinding, article ->
+                itemBinding.data = article
+                itemBinding.thumbnail.clipToOutline = true
 
                 if (!article.urlToImage.isNullOrEmpty()) {
-                    Glide.with(this).load(article.urlToImage).into(binding.thumbnail)
-                    Log.d("BindData", "Bind : ${article.title}")
-                    Log.d("BindData", "Bind Image: ${article.urlToImage}")
+                    Glide.with(this).load(article.urlToImage).into(itemBinding.thumbnail)
                 }
             }
             .into(recyclerView)
@@ -54,6 +60,17 @@ class MainActivity : AppCompatActivity() {
                 listEditor.changeAll(it)
             }
         })
+
+        mainViewModel.searchQuery.observe(this, Observer {
+            Logger.d(it)
+            it?.let {
+                mainViewModel.fetchNews()
+            }
+        })
+
+        logo.setOnClickListener {
+            Logger.d("Search Query = ${mainViewModel.searchQuery.value}")
+        }
     }
 
 }

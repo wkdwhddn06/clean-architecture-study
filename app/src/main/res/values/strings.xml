@@ -3,4 +3,6 @@
     <string name="text_silence">쉿!!!</string>
     <string name="text_thumbnail">thumbnail</string>
     <string name="backbutton">backButton</string>
+    <string name="text_search">Search...</string>
+    <string name="text_logo">logo</string>
 </resources>
