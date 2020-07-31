@@ -9,12 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.clean.news.R
 import com.clean.news.databinding.ActivityMainBinding
-import com.clean.news.databinding.ItemLayoutBinding
+import com.clean.news.databinding.ArticleItemBinding
 import com.clean.news.domain.model.Article
 import com.clean.news.presentation.ui.web.WebActivity
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import slush.ItemListEditor
 import slush.Slush
 import slush.utils.BasicDiffCallback
 
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView<ActivityMainBinding>(
                 this,
@@ -31,28 +33,7 @@ class MainActivity : AppCompatActivity() {
         binding.vm = mainViewModel
         binding.lifecycleOwner = this
 
-        val listEditor = Slush.SingleType<Article>()
-            .setItemLayout(R.layout.item_layout)
-            .setItems(mainViewModel.articles.value ?: listOf())
-            .setLayoutManager(LinearLayoutManager(this))
-            .onItemClick { _, position ->
-                val intent = Intent(this, WebActivity::class.java)
-                intent.putExtra("url", mainViewModel.getArticle(position)?.url)
-                startActivity(intent)
-
-                Logger.d("Clicked: ${mainViewModel.getArticle(position)?.urlToImage}")
-            }
-            .setDiffCallback(BasicDiffCallback())
-            .onBindData<ItemLayoutBinding> { itemBinding, article ->
-                itemBinding.data = article
-                itemBinding.thumbnail.clipToOutline = true
-
-                if (!article.urlToImage.isNullOrEmpty()) {
-                    Glide.with(this).load(article.urlToImage).into(itemBinding.thumbnail)
-                }
-            }
-            .into(recyclerView)
-            .itemListEditor
+        val listEditor = initNewsRecyclerView()
 
         mainViewModel.fetchNews()
         mainViewModel.articles.observe(this, Observer {
@@ -73,4 +54,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun initNewsRecyclerView(): ItemListEditor<Article> {
+        return Slush.SingleType<Article>()
+            .setItemLayout(R.layout.article_item)
+            .setItems(mainViewModel.articles.value ?: listOf())
+            .setLayoutManager(LinearLayoutManager(this))
+            .onItemClick { _, position ->
+                val intent = Intent(this, WebActivity::class.java)
+                intent.putExtra("url", mainViewModel.getArticle(position)?.url)
+                startActivity(intent)
+
+                Logger.d("Clicked: ${mainViewModel.getArticle(position)?.urlToImage}")
+            }
+            .setDiffCallback(BasicDiffCallback())
+            .onBindData<ArticleItemBinding> { itemBinding, article ->
+                itemBinding.data = article
+                itemBinding.thumbnail.clipToOutline = true
+
+                if (!article.urlToImage.isNullOrEmpty()) {
+                    Glide.with(this).load(article.urlToImage).into(itemBinding.thumbnail)
+                }
+            }
+            .into(recyclerView)
+            .itemListEditor
+    }
 }

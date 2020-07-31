@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">Playground</string>
+    <string name="app_name">News</string>
+
     <string name="text_silence">쉿!!!</string>
     <string name="text_thumbnail">thumbnail</string>
-    <string name="backbutton">backButton</string>
-    <string name="text_search">Search...</string>
+    <string name="text_search">Search…</string>
     <string name="text_logo">logo</string>
+
+    <string name="desc_backbutton">backButton</string>
 </resources>
