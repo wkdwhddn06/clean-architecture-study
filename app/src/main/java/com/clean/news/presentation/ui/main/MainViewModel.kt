@@ -32,10 +32,8 @@ class MainViewModel(private val newsUseCase: NewsUseCase) : BaseViewModel() {
                 } else {
                     Logger.d("Response is null!")
                 }
-            }, { error ->
-                Logger.d("On Error Called: $error")
             }, {
-                Logger.d("On Complete Called")
+                Logger.d("On Error!: $it")
             })
 
         addDisposable(disposable)

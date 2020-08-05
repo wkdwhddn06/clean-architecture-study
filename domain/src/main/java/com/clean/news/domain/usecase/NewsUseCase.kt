@@ -1,22 +1,22 @@
 package com.clean.news.domain.usecase
 
-import com.clean.news.domain.common.FlowableRxTransformer
 import com.clean.news.domain.common.Query
+import com.clean.news.domain.common.SingleRxTransformer
 import com.clean.news.domain.model.News
 import com.clean.news.domain.repositories.HeadLinesQuery
 import com.clean.news.domain.repositories.NewsRepository
 import com.clean.news.domain.repositories.SearchQuery
-import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Single
 
 class NewsUseCase(
-    private val transformer: FlowableRxTransformer<News>,
+    private val transformer: SingleRxTransformer<News>,
     private val repository: NewsRepository
 ) {
-    fun getTopHeadlines(query: Query = HeadLinesQuery()): Flowable<News> {
+    fun getTopHeadlines(query: Query = HeadLinesQuery()): Single<News> {
         return repository.getTopHeadlines(query).compose(transformer)
     }
 
-    fun getSearchResults(query: Query = SearchQuery()): Flowable<News> {
+    fun getSearchResults(query: Query = SearchQuery()): Single<News> {
         return repository.getSearchResults(query).compose(transformer)
     }
 }

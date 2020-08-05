@@ -3,11 +3,11 @@ package com.clean.news.domain.repositories
 import com.clean.news.domain.common.Query
 import com.clean.news.domain.common.QueryField
 import com.clean.news.domain.model.News
-import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Single
 
 interface NewsRepository {
-    fun getTopHeadlines(query: Query): Flowable<News>
-    fun getSearchResults(query: Query): Flowable<News>
+    fun getTopHeadlines(query: Query): Single<News>
+    fun getSearchResults(query: Query): Single<News>
 }
 
 data class HeadLinesQuery(
