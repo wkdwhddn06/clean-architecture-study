@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseRecyclerAdapter<ITEM>(private val items: MutableList<ITEM>) :
+abstract class BaseRecyclerAdapter<ITEM, R>(private val items: MutableList<ITEM>) :
     RecyclerView.Adapter<BaseViewHolder<ITEM>>() {
 
     override fun getItemCount(): Int = items.size
@@ -19,5 +19,4 @@ abstract class BaseRecyclerAdapter<ITEM>(private val items: MutableList<ITEM>) :
         DataBindingUtil.inflate<R>(
             LayoutInflater.from(viewGroup.context), layoutId, viewGroup, false
         )
-
 }
