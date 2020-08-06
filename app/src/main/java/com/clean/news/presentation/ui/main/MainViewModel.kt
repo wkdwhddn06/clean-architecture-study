@@ -3,8 +3,8 @@ package com.clean.news.presentation.ui.main
 import androidx.lifecycle.MutableLiveData
 import com.clean.news.domain.common.Query
 import com.clean.news.domain.model.Article
-import com.clean.news.domain.repositories.HeadLinesQuery
-import com.clean.news.domain.repositories.SearchQuery
+import com.clean.news.domain.repositoriy.HeadLinesQuery
+import com.clean.news.domain.repositoriy.SearchQuery
 import com.clean.news.domain.usecase.NewsUseCase
 import com.clean.news.presentation.common.BaseViewModel
 import com.orhanobut.logger.Logger

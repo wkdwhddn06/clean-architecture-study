@@ -2,6 +2,7 @@ package com.clean.news.presentation.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -11,6 +12,7 @@ import com.clean.news.R
 import com.clean.news.databinding.ActivityMainBinding
 import com.clean.news.databinding.ArticleItemBinding
 import com.clean.news.domain.model.Article
+import com.clean.news.presentation.common.recyclerview.OnItemClickListener
 import com.clean.news.presentation.ui.web.WebActivity
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,7 +21,7 @@ import slush.ItemListEditor
 import slush.Slush
 import slush.utils.BasicDiffCallback
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnItemClickListener {
     private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,15 +32,21 @@ class MainActivity : AppCompatActivity() {
                 this,
                 R.layout.activity_main
             )
+
+        val adapter: NewsListAdapter =
+            NewsListAdapter(
+                listOf(),
+                this
+            )
+        recyclerView.adapter = adapter
+
         binding.vm = mainViewModel
         binding.lifecycleOwner = this
-
-        val listEditor = initNewsRecyclerView()
 
         mainViewModel.fetchNews()
         mainViewModel.articles.observe(this, Observer {
             it?.let {
-                listEditor.changeAll(it)
+                adapter.changeAll(it)
             }
         })
 
@@ -52,6 +60,14 @@ class MainActivity : AppCompatActivity() {
         logo.setOnClickListener {
             Logger.d("Search Query = ${mainViewModel.searchQuery.value}")
         }
+    }
+
+    override fun onItemClick(clickedView: View, position: Int) {
+        val intent = Intent(this, WebActivity::class.java)
+        intent.putExtra("url", mainViewModel.getArticle(position)?.url)
+        startActivity(intent)
+
+        Logger.d("Clicked: ${mainViewModel.getArticle(position)?.urlToImage}")
     }
 
     private fun initNewsRecyclerView(): ItemListEditor<Article> {

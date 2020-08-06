@@ -1,4 +1,4 @@
-package com.clean.news.presentation.common
+package com.clean.news.presentation.common.recyclerview
 
 import android.view.View
 

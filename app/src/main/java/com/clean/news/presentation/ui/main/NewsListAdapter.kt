@@ -4,15 +4,15 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.clean.news.databinding.ArticleItemBinding
 import com.clean.news.domain.model.Article
-import com.clean.news.presentation.common.BaseRecyclerAdapter
-import com.clean.news.presentation.common.BaseViewHolder
-import com.clean.news.presentation.common.OnItemClickListener
+import com.clean.news.presentation.common.recyclerview.BaseRecyclerAdapter
+import com.clean.news.presentation.common.recyclerview.BaseViewHolder
+import com.clean.news.presentation.common.recyclerview.OnItemClickListener
 
 class NewsListAdapter(
-    articles: MutableList<Article>,
+    articles: List<Article>,
     val onItemClickListener: OnItemClickListener
 ) :
-    BaseRecyclerAdapter<Article, ArticleItemBinding>(articles) {
+    BaseRecyclerAdapter<Article, ArticleItemBinding>(ArrayList(articles)) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Article> =
         NewsViewHolder(

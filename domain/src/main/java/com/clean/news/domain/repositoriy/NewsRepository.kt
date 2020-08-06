@@ -1,4 +1,4 @@
-package com.clean.news.domain.repositories
+package com.clean.news.domain.repositoriy
 
 import com.clean.news.domain.common.Query
 import com.clean.news.domain.common.QueryField

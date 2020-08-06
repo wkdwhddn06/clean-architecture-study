@@ -1,9 +1,9 @@
 package com.clean.news.presentation.di
 
 import com.clean.news.data.api.NewsApi
-import com.clean.news.data.repositories.NewsRepositoryImpl
+import com.clean.news.data.repository.NewsRepositoryImpl
 import com.clean.news.domain.model.News
-import com.clean.news.domain.repositories.NewsRepository
+import com.clean.news.domain.repositoriy.NewsRepository
 import com.clean.news.domain.usecase.NewsUseCase
 import com.clean.news.presentation.common.AsyncFlowableTransformer
 import com.clean.news.presentation.network.NewsAuthInterceptor
